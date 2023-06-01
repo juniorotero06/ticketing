@@ -1,1 +1,23 @@
 tsc --init //crea el arhivo de configuracion de typescript en el proyecto
+
+##Google cloud
+Primero se insta el sdk de google cloud, hay que tener instalado python en el pc para que sirva
+
+gcloud auth login // iniciar sesion en google cloud
+
+gcloud init // si el proyecto ya existe en la coonsola de google cloud se da la opcion 1
+
+gcloud container clusters get-credentials ticketing-dev --region=us-east4 
+
+
+- se cambia la configuracion en el skaffold y en los deployments para google cloud
+- luego se cambia el contexto de kubernets en el docker dekstop al de gke
+- hay que habilitar el servicio de Google Cloud Api
+- se modifica los archivos de configuracion de skaffol y los deployments
+- se instala el ingress-nginx en el cluster de google cloud
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.0/deploy/static/provider/cloud/deploy.yaml
+
+
+
+Ejecutamos skaffol en la carpeta del proyecto con skaffold dev
