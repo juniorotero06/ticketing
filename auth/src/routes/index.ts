@@ -1,4 +1,5 @@
-import express, { Router } from "express";
+import express, { Router, Request, Response } from "express";
+import "express-async-errors";
 import cors from "cors";
 import helmet from "helmet";
 import compression from "compression";
@@ -10,10 +11,11 @@ import {
   SignUpRouter,
 } from "../routes/index.routes";
 
-import { ErrorMiddleware, NotFoundMiddleware } from "../middlewares";
+import { ErrorMiddleware } from "../middlewares";
+import { NotFoundError } from "../errors";
 
-const router = Router();
-const apiRouter = Router();
+const router: Router = Router();
+const apiRouter: Router = Router();
 
 apiRouter.use(express.json());
 apiRouter.use(cors());
@@ -26,7 +28,11 @@ apiRouter.use("/users", SignOutRouter);
 apiRouter.use("/users", SignUpRouter);
 
 router.use("/api", apiRouter);
-router.use(NotFoundMiddleware);
+
+router.all("*", (req: Request, res: Response) => {
+  throw new NotFoundError();
+});
+
 router.use(ErrorMiddleware);
 
 export { router as Routes };

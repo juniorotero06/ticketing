@@ -7,6 +7,6 @@ app.use(express.json());
 
 app.use(Routes);
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
   console.log(SERVICE_NAME, ": Listening in port ", PORT);
 });
