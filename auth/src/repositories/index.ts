@@ -1,3 +1,2 @@
-import { UserRepository } from "./user.repository";
-
-export { UserRepository };
+import { create, getUserByEmail } from "./user.repository";
+export { create, getUserByEmail };

@@ -1,12 +1,16 @@
-import { UserService } from "./user.service";
+import { createUserService, getUserByEmailService } from "./index";
+import { BadRequestError } from "../errors";
 
-export class AuthService {
-  _userService: UserService;
-  constructor(UserService: UserService) {
-    this._userService = UserService;
+const signUpService = async (email: string, password: string) => {
+  const existingUser = await getUserByEmailService(email);
+
+  if (existingUser) {
+    throw new BadRequestError("Email in use");
   }
 
-  async verifyEmail(email: string) {
-    return await this._userService.getUserByEmail(email);
-  }
-}
+  const created = await createUserService(email, password);
+
+  return created;
+};
+
+export { signUpService };

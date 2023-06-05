@@ -1,3 +1,3 @@
-import { AuthController } from "./auth.controller";
+import { signUp } from "./auth.controller";
 
-export { AuthController };
+export { signUp };

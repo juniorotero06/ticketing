@@ -1,28 +1,19 @@
 import { Request, Response } from "express";
-import { AuthService } from "../services";
-import { User } from "../models";
-import { BadRequestError } from "../errors";
+import { signUpService } from "../services";
+import { validationResult } from "express-validator";
+import { RequestValidationError } from "../errors";
 
-export class AuthController {
-  _authService: AuthService;
+const signUp = async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+  const errors = validationResult(req);
 
-  constructor(authService: AuthService) {
-    this._authService = authService;
+  if (!errors.isEmpty()) {
+    throw new RequestValidationError(errors.array());
   }
 
-  async signUp(req: Request, res: Response) {
-    const { email, password } = req.body;
+  const signUpSrv = await signUpService(email, password);
 
-    const existingUser = await this._authService.verifyEmail(email);
+  res.status(201).send(signUpSrv);
+};
 
-    if (existingUser) {
-      throw new BadRequestError("Email in use");
-      // console.log("ExistingUser: ", existingUser);
-    }
-
-    const user = User.build({ email, password });
-    await user.save();
-
-    return res.status(201).send(user);
-  }
-}
+export { signUp };

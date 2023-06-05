@@ -1,16 +1,11 @@
-import { UserRepository } from "../repositories";
+import { create, getUserByEmail } from "../repositories";
 
-export class UserService {
-  _userRepository: UserRepository;
-  constructor(UserRepository: UserRepository) {
-    this._userRepository = UserRepository;
-  }
+const createUserService = async (email: string, password: string) => {
+  return await create(email, password);
+};
 
-  // async create(email: string, password: string) {
-  //   return await this._userRepository.create(email, password);
-  // }
+const getUserByEmailService = async (email: string) => {
+  return await getUserByEmail(email);
+};
 
-  async getUserByEmail(email: string) {
-    return await this._userRepository.getUserByEmail(email);
-  }
-}
+export { createUserService, getUserByEmailService };

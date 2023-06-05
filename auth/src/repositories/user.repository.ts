@@ -1,17 +1,13 @@
-import { Model } from "mongoose";
+import { User } from "../models";
 
-export class UserRepository {
-  _user: Model<any>;
-  constructor(User: Model<any>) {
-    this._user = User;
-  }
+const create = async (email: string, password: string) => {
+  const user = User.build({ email, password });
+  await user.save();
+  return user;
+};
 
-  // async create(email: string, password: string) {
-  //   const user = this._user.build({ email, password });
-  //   return await user.save();
-  // }
+const getUserByEmail = async (email: string) => {
+  return await User.findOne({ email });
+};
 
-  async getUserByEmail(email: string) {
-    return await this._user.findOne({ email });
-  }
-}
+export { create, getUserByEmail };
