@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { CustomError } from "../errors/custom.error";
 
-const errorMiddleware = (
+const ErrorMiddleware = (
   err: Error,
   req: Request,
   res: Response,
@@ -16,4 +16,4 @@ const errorMiddleware = (
   });
 };
 
-export default errorMiddleware;
+export default ErrorMiddleware;
