@@ -10,13 +10,28 @@ const getUserByEmailService = async (email: string) => {
   return await getUserByEmail(email);
 };
 
-const existUser = async (object: { email: string; error_message: string }) => {
-  const { email, error_message } = object;
-  const existingUser = await getUserByEmailService(email);
+const existUserInDb = async (spec: {
+  email: string;
+  error_message: string;
+  userIsExist: boolean;
+}) => {
+  const { email, error_message, userIsExist } = spec;
+  const userFind = await getUserByEmailService(email);
 
-  if (existingUser) {
-    throw new BadRequestError(error_message);
+  switch (userIsExist) {
+    case true:
+      if (userFind) {
+        throw new BadRequestError(error_message);
+      }
+      break;
+    case false:
+      if (!userFind) {
+        throw new BadRequestError(error_message);
+      }
+      break;
   }
+
+  return userFind;
 };
 
-export { createUserService, getUserByEmailService, existUser };
+export { createUserService, getUserByEmailService, existUserInDb };

@@ -1,14 +1,9 @@
-import { Router, Request, Response } from "express";
+import { Router } from "express";
 import { currentUserMiddleware } from "../middlewares";
+import { currentUser } from "../controllers";
 
 const router: Router = Router();
 
-router.get(
-  "/currentuser",
-  currentUserMiddleware,
-  (req: Request, res: Response) => {
-    res.send({ currentUser: req.currentUser || null });
-  }
-);
+router.get("/currentuser", currentUserMiddleware, currentUser);
 
 export { router as CurrentUserRouter };

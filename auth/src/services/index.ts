@@ -1,8 +1,14 @@
 import {
   createUserService,
   getUserByEmailService,
-  existUser,
+  existUserInDb,
 } from "./user.service";
-import { signUpService } from "./auth.service";
+import { signUpService, signInService } from "./auth.service";
 
-export { createUserService, getUserByEmailService, signUpService, existUser };
+export {
+  createUserService,
+  getUserByEmailService,
+  signUpService,
+  existUserInDb,
+  signInService,
+};
