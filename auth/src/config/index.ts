@@ -10,5 +10,5 @@ export const SERVICE_NAME = process.env.SERVICE_NAME;
 export const CACHE_KEY = process.env.CACHE_KEY;
 export const MONGO_URI = process.env.MONGO_URI;
 
-//Variables creadas de forma imperatia en el cluster
+//Variables creadas de forma imperativa en el cluster
 export const JWT_SECRET = process.env.JWT_SECRET;
