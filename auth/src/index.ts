@@ -4,26 +4,40 @@ import { Routes } from "./routes";
 import { PORT, SERVICE_NAME, JWT_SECRET } from "./config";
 import dbConnection from "./database/database-connection";
 
-const app = express();
-app.set("trust proxy", true);
-app.use(express.json());
-app.use(
-  cookieSession({
-    signed: false,
-    secure: true,
-  })
-);
+class Server {
+  private static instance: Server;
+  private app: express.Application;
 
-app.use(Routes);
+  private constructor() {
+    this.app = express();
+    this.app.set("trust proxy", true);
+    this.app.use(express.json());
+    this.app.use(
+      cookieSession({
+        signed: false,
+        secure: true,
+      })
+    );
 
-const start = () => {
-  if (!JWT_SECRET) {
-    throw new Error("JWT_SECRET must be defined");
+    this.app.use(Routes);
   }
-  dbConnection();
-  app.listen(PORT, () => {
-    console.log(SERVICE_NAME, ": Listening in port ", PORT);
-  });
-};
 
-start();
+  public static getInstance(): Server {
+    if (!Server.instance) {
+      Server.instance = new Server();
+    }
+    return Server.instance;
+  }
+
+  public start(): void {
+    if (!JWT_SECRET) {
+      throw new Error("JWT_SECRET must be defined");
+    }
+    dbConnection.connect();
+    this.app.listen(PORT, () => {
+      console.log(SERVICE_NAME, ": Listening on port ", PORT);
+    });
+  }
+}
+
+Server.getInstance().start();
