@@ -1,15 +1,8 @@
-import { createUserService, getUserByEmailService } from "./index";
-import { BadRequestError } from "../errors";
+import { createUserService, existUser } from "./index";
 
 const signUpService = async (email: string, password: string) => {
-  const existingUser = await getUserByEmailService(email);
-
-  if (existingUser) {
-    throw new BadRequestError("Email in use");
-  }
-
+  existUser({ email, error_message: "Email in use" });
   const created = await createUserService(email, password);
-
   return created;
 };
 

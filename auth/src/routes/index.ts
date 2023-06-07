@@ -23,9 +23,9 @@ apiRouter.use(helmet());
 apiRouter.use(compression());
 
 apiRouter.use("/users", CurrentUserRouter);
-apiRouter.use("/users", SignInRouter);
 apiRouter.use("/users", SignOutRouter);
 apiRouter.use("/users", SignUpRouter);
+apiRouter.use("/users", SignInRouter);
 
 router.use("/api", apiRouter);
 
