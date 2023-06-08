@@ -11,7 +11,8 @@ const ErrorMiddleware = (
     return res.status(err.statusCode).send({ errors: err.serializeErrors() });
   }
 
-  return res.status(400).send({
+  console.error(err); // Imprime el error en la consola para obtener más información
+  return res.status(500).send({
     errors: [{ message: "Something went wrong" }],
   });
 };

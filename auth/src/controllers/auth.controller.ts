@@ -3,7 +3,7 @@ import { signUpService, signInService } from "../services";
 import { generateAndSafeJWT } from "../helpers/generateAndSafeJWT";
 
 const currentUser = (req: Request, res: Response) => {
-  res.send({ currentUser: req.currentUser || null });
+  res.send({ currentUser: req.currentUser! || null });
 };
 
 const signOut = (req: Request, res: Response) => {
@@ -17,8 +17,8 @@ const signIn = async (req: Request, res: Response) => {
   const existingUser = await signInService(email, password);
 
   generateAndSafeJWT(req, {
-    id: existingUser.id,
-    email: existingUser.email,
+    id: existingUser!.id,
+    email: existingUser!.email,
   });
 
   res.status(200).send(existingUser);

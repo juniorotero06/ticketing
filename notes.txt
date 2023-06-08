@@ -24,7 +24,7 @@ Ejecutamos skaffol en la carpeta del proyecto con skaffold dev
 
 ## Crear Variable de entorno de forma imperativa en el cluster
 
-kubectl create secret generic jwt-secret --from-literal=JWT_SECRET=<secreto>
+kubectl create secret generic jwt-secret --from-literal=JWT_SECRET=<mitokensecret>
 
 // La forma declarativa se crea por medio del archivo .env, 
 // la forma imperativa no requiere que creemos un archivo .env
