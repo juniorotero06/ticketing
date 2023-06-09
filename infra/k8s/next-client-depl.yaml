@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: next-client-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: next-client
+  template:
+    metadata:
+      labels:
+        app: next-client
+    spec:
+      containers:
+        - name: next-client
+          # image: us.gcr.io/ticketing-dev-388406/auth
+          image: juniorotero/next-client
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: next-client-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: next-client
+  ports:
+    - name: next-client
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
