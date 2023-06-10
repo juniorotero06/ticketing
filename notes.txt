@@ -28,3 +28,9 @@ kubectl create secret generic jwt-secret --from-literal=JWT_SECRET=<mitokensecre
 
 // La forma declarativa se crea por medio del archivo .env, 
 // la forma imperativa no requiere que creemos un archivo .env
+
+kubectl get namespace
+kubectl get services
+kubectl get services -n ingress-nginx //ingresamos a ver los servicios dentro de un namespace
+http://<service name>.<namespace>.svc.cluster.local
+example: http://ingress-nginx.ingress-nginx.svc.cluster.local
