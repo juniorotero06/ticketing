@@ -8,7 +8,6 @@ const LandingPage = ({ currentUser }) => {
   );
 };
 
-//getInitialProps Obtener algun dato del lado del servidor durante el proceso de renderizacion
 LandingPage.getInitialProps = async (context) => {
   console.log("LANDING PAGE!");
   const client = buildClient(context);
